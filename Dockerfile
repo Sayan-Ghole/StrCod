@@ -1,5 +1,5 @@
-# Use PHP 8.2 with Apache
-FROM php:8.2-apache
+# Use PHP 8.4 with Apache
+FROM php:8.4-apache
 
 # Set working directory early
 WORKDIR /var/www/html
@@ -42,13 +42,13 @@ COPY . .
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Install Composer dependencies safely
-RUN composer install --no-dev --no-interaction --optimize-autoloader || true
+# Install Composer dependencies
+RUN composer install --no-dev --no-interaction --optimize-autoloader
 
 # Cache Laravel config/routes/views for production
 RUN php artisan config:cache \
     && php artisan route:cache \
-    && php artisan view:cache || true
+    && php artisan view:cache
 
 # Set Apache document root to public folder
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
