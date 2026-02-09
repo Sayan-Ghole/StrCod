@@ -1,7 +1,7 @@
 # Use PHP 8.4 with Apache
 FROM php:8.4-apache
 
-# Set working directory early
+# Set working directory
 WORKDIR /var/www/html
 
 # Install system dependencies
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     libxpm-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Configure GD for PHP
+# Configure GD
 RUN docker-php-ext-configure gd --with-jpeg --with-freetype --with-webp --with-xpm
 
 # Install PHP extensions
@@ -31,26 +31,26 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif bcmath gd intl
 # Enable Apache rewrite
 RUN a2enmod rewrite
 
-# Copy Composer from official image
+# Copy Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Copy project files
 COPY . .
 
-# ✅ Install Composer dependencies first
-RUN composer install --no-dev --no-interaction --optimize-autoloader
+# Install Composer dependencies without running Laravel scripts
+RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts
 
-# ✅ Fix permissions after composer install (includes vendor folder)
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/vendor
+# Fix permissions for Laravel
+RUN chown -R www-data:www-data storage bootstrap/cache vendor \
+    && chmod -R 775 storage bootstrap/cache vendor
 
-# ✅ Optional: Cache Laravel config/routes/views (won't fail if APP_KEY not set)
-RUN php artisan config:cache || true
-RUN php artisan route:cache || true
-RUN php artisan view:cache || true
+# ✅ Clear caches (will not fail if APP_KEY missing)
+RUN php artisan config:clear || true
+RUN php artisan route:clear || true
+RUN php artisan view:clear || true
 
-# Set Apache document root to public folder
+# Set Apache document root
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
     && sed -ri 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf
@@ -58,5 +58,5 @@ RUN sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-availabl
 # Expose port 80
 EXPOSE 80
 
-# Start Apache in foreground
+# Start Apache
 CMD ["apache2-foreground"]
