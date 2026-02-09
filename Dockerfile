@@ -38,17 +38,17 @@ ENV COMPOSER_MEMORY_LIMIT=-1
 # Copy project files
 COPY . .
 
-# Fix permissions before Composer install
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Install Composer dependencies
+# ✅ Install Composer dependencies first
 RUN composer install --no-dev --no-interaction --optimize-autoloader
 
-# Cache Laravel config/routes/views for production
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+# ✅ Fix permissions after composer install (includes vendor folder)
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/vendor
+
+# ✅ Optional: Cache Laravel config/routes/views (won't fail if APP_KEY not set)
+RUN php artisan config:cache || true
+RUN php artisan route:cache || true
+RUN php artisan view:cache || true
 
 # Set Apache document root to public folder
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
