@@ -1,8 +1,5 @@
 FROM php:8.2-apache
 
-# Enable Apache rewrite
-RUN a2enmod rewrite
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -10,17 +7,14 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libpng-dev \
     libonig-dev \
-    libxml2-dev
+    libxml2-dev \
+    curl
 
-# Install PHP extensions needed by Laravel
-RUN docker-php-ext-install \
-    pdo \
-    pdo_mysql \
-    mbstring \
-    zip \
-    exif \
-    bcmath \
-    gd
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif bcmath gd
+
+# Enable Apache rewrite
+RUN a2enmod rewrite
 
 # Set working directory
 WORKDIR /var/www/html
@@ -31,14 +25,14 @@ COPY . .
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Install Laravel dependencies
-RUN composer install --no-dev --no-interaction --optimize-autoloader
+# Composer install WITHOUT running Laravel scripts
+RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts
 
-# Fix permissions (Apache user)
-RUN chown -R www-data:www-data /var/www/html \
+# Fix permissions
+RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Set Apache document root to public
+# Set Apache document root
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
     && sed -ri 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf
