@@ -1,16 +1,9 @@
-FROM bitnami/laravel:10
+FROM bitnami/laravel:latest
 
-# Set working directory
 WORKDIR /app
 
-# Copy project files
 COPY . .
 
-# Install PHP dependencies
-RUN composer install \
-    --no-dev \
-    --no-interaction \
-    --optimize-autoloader
+RUN composer install --no-dev --no-interaction --optimize-autoloader
 
-# Expose Apache port
 EXPOSE 8080
