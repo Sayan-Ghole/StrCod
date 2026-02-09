@@ -1,39 +1,44 @@
 FROM php:8.2-apache
 
-# Install basic system dependencies
+# Install system + build dependencies (THIS IS THE FIX)
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    autoconf \
+    pkg-config \
     libonig-dev \
     libxml2-dev \
     zip \
     unzip \
     git \
-    curl
+    curl \
+ && rm -rf /var/lib/apt/lists/*
 
-# Install ONLY essential PHP extensions
+# Install required PHP extensions
 RUN docker-php-ext-install \
+    mbstring \
+    pdo \
     pdo_mysql \
     pdo_sqlite \
-    mbstring \
-    exif \
-    pcntl \
     bcmath
 
 # Enable Apache rewrite
 RUN a2enmod rewrite
 
+# Set working directory
 WORKDIR /var/www/html
 
+# Copy project
 COPY . .
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Install PHP dependencies (disable scripts)
+# Install PHP deps (no scripts at build time)
 RUN composer install \
     --no-dev \
-    --optimize-autoloader \
     --no-interaction \
-    --no-scripts
+    --no-scripts \
+    --optimize-autoloader
 
 # Permissions
 RUN chown -R www-data:www-data storage bootstrap/cache \
