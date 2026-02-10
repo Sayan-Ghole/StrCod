@@ -120,7 +120,7 @@
         <h2>Create Account</h2>
         <p>Join Code Error Explainer</p>
 
-        <form method="POST" action="/users">
+        <form method="POST" action="{{ route('CreateUsers') }}">
             @csrf
 
             <div class="form-group">

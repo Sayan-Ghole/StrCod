@@ -43,10 +43,10 @@ class AdminController extends Controller
         'email' => $request->email,
         'password' => $request->password,
     ])) {
-        return redirect('/admin');
+        return redirect()->route('Admin');
     }
 
-        return redirect('/adminSignUp');
+        return redirect()->route('AdminSignUp');
 
     }
 
@@ -67,7 +67,7 @@ class AdminController extends Controller
             return redirect('/admin');
         }
 
-        return redirect('/adminLogin');
+        return redirect()->route('AdminLogin');
     }
 
     public function logout()

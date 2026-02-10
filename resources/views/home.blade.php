@@ -135,7 +135,7 @@
     <div class="navbar">
         <h2>StrCode</h2>
         <div class="nav-links">
-            <a href="/">Home</a>
+            <a href="{{ route('home') }}">Home</a>
             <a href="{{ route('CreateUser') }}">Sign Up</a>
 
             @if(Auth::check())

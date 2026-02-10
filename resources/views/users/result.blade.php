@@ -67,7 +67,7 @@
             {{ $answer }}
         </div>
         
-        <a href="/" class="back-btn">Go Back</a>
+        <a href="{{ route('home') }}" class="back-btn">Go Back</a>
     </div>
 
 </body>

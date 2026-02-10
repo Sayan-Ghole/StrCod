@@ -9,9 +9,9 @@ use App\Http\Controllers\ErrorExplainer;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 Route::get('/users', [UserController::class,'create'])->name('CreateUser');
-Route::post('/users', [UserController::class,'store']);
+Route::post('/users', [UserController::class,'store'])->name('CreateUsers');
 
 Route::get('/userdetails', [UserController::class,'show'])->name('UserDetails');
 Route::get('/update/{id}',[UserController::class,'edit'])->name('updateUser');

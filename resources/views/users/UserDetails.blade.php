@@ -111,7 +111,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>Admin Panel</h2>
-        <a href="/admin">Dashboard</a>
+        <a href="{{ route('Admin') }}">Dashboard</a>
         <a href="{{ route('AdminSignUp') }}">Add User</a>
         <a href="{{ route('UserDetails') }}" class="active">User Details</a>
         <a href="{{ route('Adminlogout') }}">Logout</a>

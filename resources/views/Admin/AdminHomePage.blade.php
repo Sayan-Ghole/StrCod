@@ -96,7 +96,7 @@
     <div class="sidebar">
         <h2>Admin Panel</h2>
 
-        <a href="/admin" class="active">Dashboard</a>
+        <a href="{{ route('Admin') }}" class="active">Dashboard</a>
         <a href="{{ route('AdminSignUp') }}">Add User</a>
         <a href="{{ route('UserDetails') }}">User Details</a>
          <a href="{{ route('Adminlogout') }}">Logout</a>

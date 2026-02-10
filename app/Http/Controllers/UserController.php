@@ -39,7 +39,7 @@ class UserController extends Controller
         $user = user::create($ValidateUser);
         Auth::login($user);
 
-        return redirect('/');
+        return redirect()->route('home');
     }
 
     /**
@@ -99,11 +99,11 @@ class UserController extends Controller
               'password'=>'required|string|min:8',
         ]);
         Auth::attempt($credentials);
-       return redirect('/');
+       return redirect()->route('home');
     }
 
     public function logout(){
         Auth::logout();
-        return redirect('/');
+        return redirect()->route('home');
     }
 }

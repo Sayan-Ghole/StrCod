@@ -119,7 +119,7 @@
 
     <div class="signup-card">
         <h2>Admin Panel</h2>
-        <form method="POST" action="/adminSignUp">
+        <form method="POST" action="{{ route('AdminSignUp') }}">
             @csrf
 
             <div class="form-group">
