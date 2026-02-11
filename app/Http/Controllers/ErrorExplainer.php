@@ -42,7 +42,7 @@ class ErrorExplainer extends Controller
                 ";
 
                 $response = Http::withHeaders([
-                    'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
+                    'Authorization' => 'Bearer ' . trim(env('OPENAI_API_KEY')),
                     'Content-Type'  => 'application/json',
                 ])->post('https://api.openai.com/v1/chat/completions', [
                     'model' => 'gpt-4o-mini',
