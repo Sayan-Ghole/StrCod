@@ -1,196 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Code Error Explainer</title>
+<meta charset="UTF-8">
+<title>StrCode - Error Explainer</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #14281D;
-            color: #E5E7EB;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        /* Navbar */
-        .navbar {
-            background-color: #0F1F17;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-        }
+<style>
 
-        .navbar h2 {
-            margin: 0;
-            color: #4CAF50;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .nav-links a {
-            color: #E5E7EB;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 15px;
-        }
+body{
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+}
 
-        .nav-links a:hover {
-            color: #4CAF50;
-        }
+/* Navbar */
 
-        /* Main Container */
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            background-color: #1F3D2B;
-            padding: 35px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-        }
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
 
-        .container h1 {
-            text-align: center;
-            color: #4CAF50;
-        }
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
 
-        .container p {
-            text-align: center;
-            color: #D1D5DB;
-            margin-bottom: 35px;
-        }
+.navbar h2{
+    color:#4ade80;
+    letter-spacing:1px;
+}
 
-        label {
-            font-weight: bold;
-            margin-top: 15px;
-            display: block;
-        }
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    margin-left:25px;
+    font-size:14px;
+    transition:0.3s;
+}
 
-        select, textarea, button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            font-size: 14px;
-            border-radius: 6px;
-            border: none;
-            outline: none;
-        }
+.nav-links a:hover{
+    color:#4ade80;
+}
 
-        select, textarea {
-            background-color: #14281D;
-            color: #E5E7EB;
-            border: 1px solid #355E3B;
-        }
+/* Welcome */
 
-        textarea {
-            height: 130px;
-            resize: none;
-        }
+#welcome{
+    text-align:center;
+    margin-top:30px;
+}
 
-        button {
-            background-color: #4CAF50;
-            color: #0F1F17;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 25px;
-        }
+/* Main container */
 
-        button:hover {
-            background-color: #43A047;
-        }
+.container{
+    max-width:850px;
+    margin:40px auto;
+    padding:40px;
 
-        /* Info Section */
-        .info {
-            margin-top: 45px;
-            padding-top: 25px;
-            border-top: 1px solid #355E3B;
-        }
+    background:rgba(255,255,255,0.05);
+    border-radius:20px;
 
-        .info h3 {
-            color: #4CAF50;
-        }
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.1);
 
-        .info ul {
-            color: #D1D5DB;
-            line-height: 1.8;
-        }
+    box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 15px;
-            margin-top: 50px;
-            color: #9CA3AF;
-            font-size: 13px;
-        }
+/* Title */
 
-        #welcome {
-            margin: 20px;
-            margin-bottom: 0;
-        }
-    </style>
+.container h1{
+    text-align:center;
+    color:#4ade80;
+}
+
+.container p{
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:35px;
+    color:#cbd5e1;
+}
+
+/* Form */
+
+label{
+    margin-top:15px;
+    display:block;
+    font-weight:500;
+}
+
+select,textarea{
+
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.1);
+
+    background:rgba(255,255,255,0.05);
+    color:white;
+
+    transition:0.3s;
+}
+
+/* Focus animation */
+
+select:focus,
+textarea:focus{
+
+    border-color:#4ade80;
+    box-shadow:0 0 10px #4ade8070;
+}
+
+textarea{
+    height:130px;
+    resize:none;
+}
+
+/* Button */
+
+button{
+
+    width:100%;
+    margin-top:25px;
+    padding:13px;
+
+    border:none;
+    border-radius:12px;
+
+    font-size:15px;
+    font-weight:600;
+
+    background:linear-gradient(45deg,#22c55e,#4ade80);
+    color:#022c22;
+
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.4);
+}
+
+/* Footer */
+
+.footer{
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+    color:#94a3b8;
+    font-size:13px;
+}
+
+/* floating animation */
+
+.container{
+    animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+
+0%{transform:translateY(0px)}
+50%{transform:translateY(-8px)}
+100%{transform:translateY(0px)}
+
+}
+
+</style>
 </head>
+
 <body>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <h2>StrCode</h2>
-        <div class="nav-links">
-            <a href="{{ route('home') }}">Home</a>
-            <a href="{{ route('CreateUser') }}">Sign Up</a>
+<!-- Navbar -->
 
-            @if(Auth::check())
-            <a href="{{ route('logout') }}">Logout</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
-            @endif
-        </div>
-    </div>
-    <div id="welcome">
-    @if (Auth::check())
-        <h2>Welcome, {{ Auth::user()->name }}</h2>
-    @endif
-   </div>
-    <!-- Main Content -->
-    <div class="container">
-        <h1>Understand Coding Errors Clearly</h1>
-        <p>Paste your programming error and get a simple, beginner-friendly explanation.</p>
+<div class="navbar">
 
-        <form method="POST" action="{{ route('errorExplainer') }}">
-            @csrf
-                <label>Programming Language</label>
-            <select name="language">
-                <option value="Python">Python</option>
-                <option value="Java">Java</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="C++">C++</option>
-                <option value="C">C</option>
-                <option value="C#">C#</option>
-                <option value="Go">Go</option>
-                <option value="Rust">Rust</option>
-                <option value="Swift">Swift</option>
-                <option value="HTML">HTML</option>
-                <option value="CSS">CSS</option>
-                <option value="TypeScript">TypeScript</option>
-                <option value="Ruby">Ruby</option>
-                <option value="R">R</option>
-            </select>
+<h2>StrCode</h2>
 
-            <label>Error Message</label>
-            <textarea 
-                name="error_message" 
-                placeholder="Example: TypeError: unsupported operand type(s) for +">
-            </textarea>
+<div class="nav-links">
 
-            <button type="submit">Explain Error</button>
-        </form>
-        <div class="info">
-        </div>
-    </div>
+<a href="{{ route('home') }}">Home</a>
+<a href="{{ route('CreateUser') }}">Sign Up</a>
 
-    <!-- Footer -->
-    <div class="footer">
-        @ StrCode, Code Error Explainer
-    </div>
+@if(Auth::check())
+<a href="{{ route('logout') }}">Logout</a>
+@else
+<a href="{{ route('login') }}">Login</a>
+@endif
+
+</div>
+
+</div>
+
+<div id="welcome">
+
+@if (Auth::check())
+<h2>Welcome, {{ Auth::user()->name }}</h2>
+@endif
+
+</div>
+
+<!-- Main Container -->
+
+<div class="container">
+
+<h1>Understand Coding Errors Clearly</h1>
+
+<p>Paste your programming error and get a simple explanation.</p>
+
+<form method="POST" action="{{ route('errorExplainer') }}">
+
+@csrf
+
+<label>Programming Language</label>
+
+<select name="language">
+
+<option value="Python">Python</option>
+<option value="Java">Java</option>
+<option value="JavaScript">JavaScript</option>
+<option value="C++">C++</option>
+<option value="C">C</option>
+<option value="C#">C#</option>
+<option value="Go">Go</option>
+<option value="Rust">Rust</option>
+<option value="Swift">Swift</option>
+<option value="HTML">HTML</option>
+<option value="CSS">CSS</option>
+<option value="TypeScript">TypeScript</option>
+<option value="Ruby">Ruby</option>
+<option value="R">R</option>
+
+</select>
+
+<label>Error Message</label>
+
+<textarea
+name="error_message"
+placeholder="Example: TypeError: unsupported operand type(s) for +"
+></textarea>
+
+<button type="submit">Explain Error</button>
+
+</form>
+
+</div>
+
+<div class="footer">
+© StrCode • Code Error Explainer
+</div>
+
+<script>
+
+/* textarea auto expand */
+
+let textarea = document.querySelector("textarea");
+
+textarea.addEventListener("input",  function(){
+
+textarea.style.height="auto";
+textarea.style.height=textarea.scrollHeight+"px";
+
+});
+
+/* button loading effect */
+
+const form = document.querySelector("form");
+const btn = document.querySelector("button");
+
+form.addEventListener("submit",function(){
+
+btn.innerText="Analyzing...";
+btn.style.opacity="0.7";
+
+});
+
+</script>
 
 </body>
 </html>
