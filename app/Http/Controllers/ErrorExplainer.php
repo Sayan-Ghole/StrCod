@@ -56,7 +56,8 @@ class ErrorExplainer extends Controller
 
                 $answer = $response['choices'][0]['message']['content'];
 
-                return view('users.result', compact('answer'));
+                // return view('users.result', compact('answer'));
+                return view('home', compact('answer'));
             }
 
 

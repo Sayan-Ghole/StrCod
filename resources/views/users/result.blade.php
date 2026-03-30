@@ -106,7 +106,7 @@ padding:12px 25px;
 
 background:linear-gradient(45deg,#22c55e,#4ade80);
 
-color:#022c22;
+color:#011713a8;
 
 text-decoration:none;
 
@@ -163,6 +163,45 @@ background:rgba(255,255,255,0.2);
 
 }
 
+/* //for level */
+.levels {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.level {
+    padding: 6px 12px;
+    border-radius: 50px;
+    /* font-size: 14px; */
+    opacity: 0.3; /* faded */
+    transition: 0.3s ease;
+}
+
+/* Individual colors */
+#beginner {
+    background: #4CAF50;
+    color: #40b344;
+}
+
+#intermediate {
+    background: #e9b311d7;
+    color: #d6c07d;
+
+}
+
+#advanced {
+    background: rgb(220, 108, 11);
+    color: orange;
+}
+
+/* Active Glow */
+.active {
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 0 5px currentColor,
+                0 0 5px currentColor;
+}
 </style>
 </head>
 
@@ -171,7 +210,11 @@ background:rgba(255,255,255,0.2);
 <div class="container">
 
 <h1>🧠 Error Explanation</h1>
-
+<div class="levels">
+    <span id="beginner" class="level"></span>
+    <span id="intermediate" class="level"></span>
+    <span id="advanced" class="level"></span>
+</div>
 <div class="answer-box" id="answerText">
 {{ $answer }}
 </div>
@@ -201,6 +244,55 @@ alert("Explanation copied!");
 
 
 }
+
+//for levels...............
+function checkdef(){
+    
+let answerText = document.querySelector("#answerText")
+let answerbox = document.querySelector(".answer-box")
+let ans = answerText.innerText.toLowerCase();
+
+let beginner = document.querySelector("#beginner");
+let intermediate = document.querySelector("#intermediate");
+let advanced = document.querySelector("#advanced");
+
+// beginner.classList.remove()
+// intermediate.classList.remove()
+// advanced.classList.remove()
+
+if(ans.includes("syntax") || ans.includes("undefined")){
+    beginner.classList.add("active");
+    answerbox.style.borderLeft='4px solid #4ade80';
+}
+else if(ans.includes("type") || ans.includes("null")){
+    intermediate.classList.add("active");
+    answerbox.style.borderLeft='4px solid #e9b311d7';
+    
+}
+else{
+    advanced.classList.add("active");
+    answerbox.style.borderLeft='4px solid orange';
+    
+}
+   
+}
+checkdef()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 
